@@ -29,7 +29,7 @@ const LocationSection = () => {
           asChild
         >
           <a
-            href="https://www.google.com/maps/search/Casa+Cartagena+Rionegro+Antioquia"
+            href="https://share.google/tXVm833YEpRqQg90n"
             target="_blank"
             rel="noopener noreferrer"
           >
