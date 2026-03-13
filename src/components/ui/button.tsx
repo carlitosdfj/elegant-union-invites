@@ -15,6 +15,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        wedding: "bg-warm-brown text-primary-foreground hover:bg-warm-brown/90 rounded-full font-sans tracking-widest uppercase text-xs",
+        "wedding-outline": "border-2 border-warm-brown text-warm-brown hover:bg-warm-brown hover:text-primary-foreground rounded-full font-sans tracking-widest uppercase text-xs",
       },
       size: {
         default: "h-10 px-4 py-2",
