@@ -1,12 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import EnvelopeAnimation from "@/components/EnvelopeAnimation";
+import HeroSection from "@/components/HeroSection";
+import TimelineSection from "@/components/TimelineSection";
+import LocationSection from "@/components/LocationSection";
+import DressCodeSection from "@/components/DressCodeSection";
+import GallerySection from "@/components/GallerySection";
+import ImportantInfoSection from "@/components/ImportantInfoSection";
+import RSVPSection from "@/components/RSVPSection";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <EnvelopeAnimation />
+
+      <main>
+        <HeroSection />
+
+        <div className="w-16 h-px bg-warm-brown/30 mx-auto" />
+        <TimelineSection />
+
+        <div className="w-16 h-px bg-warm-brown/30 mx-auto" />
+        <LocationSection />
+
+        <div className="w-16 h-px bg-warm-brown/30 mx-auto" />
+        <DressCodeSection />
+
+        <div className="w-16 h-px bg-warm-brown/30 mx-auto" />
+        <GallerySection />
+
+        <div className="w-16 h-px bg-warm-brown/30 mx-auto" />
+        <ImportantInfoSection />
+
+        <div className="w-16 h-px bg-warm-brown/30 mx-auto" />
+        <RSVPSection />
+
+        {/* Footer */}
+        <footer className="py-16 text-center">
+          <p className="font-serif text-2xl sm:text-3xl text-foreground font-light">
+            Sebastián & Sara
+          </p>
+          <p className="font-sans-detail text-xs text-muted-foreground mt-2 tracking-[0.2em]">
+            21 · 08 · 2026
+          </p>
+        </footer>
+      </main>
     </div>
   );
 };
