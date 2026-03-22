@@ -17,10 +17,13 @@ const LocationSection = () => {
           Lugar
         </h2>
         <h3 className="font-serif text-2xl sm:text-3xl text-warm-brown mb-2">
-          Casa Cartagena
+          Casa Cartagena – Wink Eventos
         </h3>
+        <p className="font-sans-detail text-sm text-muted-foreground mb-2">
+          Calle 38 transversal 24A
+        </p>
         <p className="font-sans-detail text-sm text-muted-foreground mb-8">
-          Rionegro, Antioquia
+          Rionegro, Antioquia, Colombia
         </p>
 
         <Button
@@ -29,7 +32,7 @@ const LocationSection = () => {
           asChild
         >
           <a
-            href="https://share.google/tXVm833YEpRqQg90n"
+            href="https://share.google/E3Ulkxrx8YC3GC6AN"
             target="_blank"
             rel="noopener noreferrer"
           >
