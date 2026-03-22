@@ -1,4 +1,5 @@
 import EnvelopeAnimation from "@/components/EnvelopeAnimation";
+import FallingPetals from "@/components/FallingPetals";
 import HeroSection from "@/components/HeroSection";
 import TimelineSection from "@/components/TimelineSection";
 import LocationSection from "@/components/LocationSection";
@@ -10,6 +11,7 @@ import RSVPSection from "@/components/RSVPSection";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <FallingPetals />
       <EnvelopeAnimation />
 
       <main>
