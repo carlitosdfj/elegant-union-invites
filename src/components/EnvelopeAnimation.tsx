@@ -15,8 +15,7 @@ const EnvelopeAnimation = () => {
   const envelopeOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
   const containerScale = useTransform(scrollYProgress, [0.75, 1], [1, 0.95]);
   const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  // Card z-index: starts behind envelope front (z-10), rises above everything (z-60) as it slides out
-  const cardZIndex = useTransform(scrollYProgress, [0.14, 0.2], [10, 60]);
+  // Card stays between back (z-30) and front (z-40) panels — only visible as it exits the top edge
 
   return (
     <div ref={containerRef} className="h-[300vh] relative">
