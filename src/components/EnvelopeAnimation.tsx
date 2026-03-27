@@ -26,8 +26,8 @@ const EnvelopeAnimation = () => {
         >
           {/* Card inside — sits behind the envelope body */}
           <motion.div
-            style={{ y: cardY, scale: cardScale }}
-            className="absolute inset-2 bg-card rounded-md shadow-lg z-[5] flex flex-col items-center justify-center p-6"
+            style={{ y: cardY, scale: cardScale, zIndex: cardZ }}
+            className="absolute inset-2 bg-card rounded-md shadow-lg flex flex-col items-center justify-center p-6"
           >
             <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
               Estás invitado a la boda de
