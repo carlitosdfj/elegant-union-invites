@@ -26,8 +26,8 @@ const EnvelopeAnimation = () => {
         >
           {/* === INVITATION CARD (starts inside, slides up and out) === */}
           <motion.div
-            style={{ y: cardY, scale: cardScale, zIndex: cardZIndex }}
-            className="absolute left-3 right-3 top-3 bottom-3 rounded-md flex flex-col items-center justify-center"
+            style={{ y: cardY, scale: cardScale }}
+            className="absolute left-3 right-3 top-3 bottom-3 z-[35] rounded-md flex flex-col items-center justify-center"
           >
             <div
               className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-4"
