@@ -9,95 +9,129 @@ const EnvelopeAnimation = () => {
     offset: ["start start", "end start"],
   });
 
-  const flapRotate = useTransform(scrollYProgress, [0, 0.3], [0, -180]);
-  const cardY = useTransform(scrollYProgress, [0.25, 0.7], [0, -350]);
-  const cardScale = useTransform(scrollYProgress, [0.5, 0.8], [1, 1.1]);
-  const envelopeOpacity = useTransform(scrollYProgress, [0.6, 0.85], [1, 0]);
-  const containerScale = useTransform(scrollYProgress, [0.7, 1], [1, 0.9]);
-  // Card z-index rises above envelope once flap opens
-  const cardZ = useTransform(scrollYProgress, [0.2, 0.25], [5, 40]);
+  // Animation phases:
+  // 0.00–0.25: flap opens (rotates from 0 to 180)
+  // 0.20–0.60: card slides up out of envelope
+  // 0.50–0.70: envelope fades out
+  // 0.60–0.85: card scales slightly and centers
+
+  const flapRotate = useTransform(scrollYProgress, [0, 0.25], [0, 180]);
+  const cardY = useTransform(scrollYProgress, [0.15, 0.6], [0, -320]);
+  const cardScale = useTransform(scrollYProgress, [0.5, 0.8], [1, 1.05]);
+  const envelopeOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
+  const containerScale = useTransform(scrollYProgress, [0.75, 1], [1, 0.95]);
+  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
   return (
     <div ref={containerRef} className="h-[300vh] relative">
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden" style={{ perspective: "800px" }}>
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ scale: containerScale }}
-          className="relative w-[320px] h-[220px] sm:w-[420px] sm:h-[280px]"
+          className="relative w-[300px] h-[200px] sm:w-[400px] sm:h-[260px]"
         >
-          {/* Card inside — sits behind the envelope body */}
+          {/* === INVITATION CARD (starts inside, slides up) === */}
           <motion.div
-            style={{ y: cardY, scale: cardScale, zIndex: cardZ }}
-            className="absolute inset-2 bg-card rounded-md shadow-lg flex flex-col items-center justify-center p-6"
+            style={{ y: cardY, scale: cardScale }}
+            className="absolute left-3 right-3 top-3 bottom-3 z-[50] rounded-md shadow-lg flex flex-col items-center justify-center p-6"
+            // Use inline style for the card background to keep it crisp
+            // We use the card token
           >
-            <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
-              Estás invitado a la boda de
-            </p>
-            <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
-              Sebastián
-            </h2>
-            <p className="font-serif text-xl sm:text-2xl text-warm-brown my-1">&</p>
-            <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
-              Sara
-            </h2>
-            <div className="w-16 h-px bg-warm-brown my-3" />
-            <p className="font-sans-detail text-[10px] sm:text-xs tracking-[0.2em] text-muted-foreground uppercase">
-              21 de Agosto, 2026
-            </p>
+            <div className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-4">
+              <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
+                Estás invitado a la boda de
+              </p>
+              <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
+                Sebastián
+              </h2>
+              <p className="font-serif text-xl sm:text-2xl text-warm-brown my-1">&amp;</p>
+              <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
+                Sara
+              </h2>
+              <div className="w-16 h-px bg-warm-brown my-3" />
+              <p className="font-sans-detail text-[10px] sm:text-xs tracking-[0.2em] text-muted-foreground uppercase">
+                21 de Agosto, 2026
+              </p>
+            </div>
           </motion.div>
 
-          {/* Envelope Body (back panel) */}
+          {/* === ENVELOPE BODY (rectangular back) === */}
           <motion.div
             style={{ opacity: envelopeOpacity }}
-            className="absolute inset-0 bg-envelope-dark rounded-lg shadow-2xl z-10"
+            className="absolute inset-0 z-[51] pointer-events-none"
           >
-            <div className="absolute inset-0 bg-secondary rounded-lg" />
-          </motion.div>
+            {/* Back panel */}
+            <div className="absolute inset-0 bg-secondary rounded-lg shadow-2xl" />
 
-          {/* Front of envelope — covers the card from the front */}
-          <motion.div
-            style={{ opacity: envelopeOpacity }}
-            className="absolute bottom-0 left-0 right-0 h-[55%] bg-secondary rounded-b-lg z-20"
-          >
-            {/* Small triangle at the top of the front panel */}
+            {/* Left inner fold triangle */}
             <div
-              className="absolute top-0 left-0 right-0 h-6 bg-envelope-dark"
+              className="absolute inset-0 bg-envelope-dark opacity-60"
               style={{
-                clipPath: "polygon(0 0, 50% 100%, 100% 0)",
+                clipPath: "polygon(0 0, 50% 50%, 0 100%)",
               }}
             />
-            {/* Decorative seal */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+            {/* Right inner fold triangle */}
+            <div
+              className="absolute inset-0 bg-envelope-dark opacity-60"
+              style={{
+                clipPath: "polygon(100% 0, 50% 50%, 100% 100%)",
+              }}
+            />
+
+            {/* Bottom flap (the front face of the envelope) */}
+            <div
+              className="absolute bottom-0 left-0 right-0 bg-secondary z-[52]"
+              style={{
+                height: "60%",
+                clipPath: "polygon(0 30%, 50% 0%, 100% 30%, 100% 100%, 0 100%)",
+                borderRadius: "0 0 0.5rem 0.5rem",
+              }}
+            >
+              {/* Subtle inner shadow line */}
+              <div
+                className="absolute top-0 left-0 right-0 h-[1px] bg-envelope-dark opacity-30"
+                style={{
+                  clipPath: "polygon(0 0, 50% 0, 100% 0)",
+                }}
+              />
+            </div>
+
+            {/* Decorative wax seal */}
+            <div className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[53]">
               <motion.div
                 initial={{ scale: 1 }}
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                animate={{ scale: [1, 1.08, 1] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-warm-brown shadow-md flex items-center justify-center"
               >
-                <Heart className="w-8 h-8 text-warm-brown fill-warm-brown" />
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground fill-primary-foreground" />
               </motion.div>
             </div>
           </motion.div>
 
-          {/* Envelope Flap — opens toward the viewer */}
+          {/* === ENVELOPE FLAP (triangular, opens upward) === */}
           <motion.div
             style={{
               rotateX: flapRotate,
               transformOrigin: "top center",
               opacity: envelopeOpacity,
+              perspective: 800,
             }}
-            className="absolute top-0 left-0 right-0 h-[50%] z-30"
+            className="absolute top-0 left-0 right-0 z-[54]"
           >
-            {/* Back face of flap (visible when closed) */}
+            {/* Front face of flap (visible when closed — pointing down) */}
             <div
-              className="absolute inset-0 w-full h-full bg-envelope-dark"
+              className="absolute top-0 left-0 right-0 bg-secondary shadow-sm"
               style={{
+                height: "140px",
                 clipPath: "polygon(0 0, 100% 0, 50% 100%)",
                 backfaceVisibility: "hidden",
               }}
             />
-            {/* Front face of flap (visible when opened) */}
+            {/* Back face of flap (visible when opened — shows inner color) */}
             <div
-              className="absolute inset-0 w-full h-full bg-secondary"
+              className="absolute top-0 left-0 right-0 bg-envelope-dark"
               style={{
+                height: "140px",
                 clipPath: "polygon(0 0, 100% 0, 50% 100%)",
                 backfaceVisibility: "hidden",
                 transform: "rotateX(180deg)",
@@ -108,7 +142,7 @@ const EnvelopeAnimation = () => {
 
         {/* Scroll indicator */}
         <motion.div
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0]) }}
+          style={{ opacity: scrollIndicatorOpacity }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <p className="font-sans-detail text-xs tracking-[0.2em] text-muted-foreground uppercase">
