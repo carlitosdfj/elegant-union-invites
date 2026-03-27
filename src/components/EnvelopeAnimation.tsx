@@ -15,8 +15,7 @@ const EnvelopeAnimation = () => {
   const envelopeOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
   const containerScale = useTransform(scrollYProgress, [0.75, 1], [1, 0.95]);
   const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  // Card z-index: starts behind envelope front (z-10), rises above everything (z-60) as it slides out
-  const cardZIndex = useTransform(scrollYProgress, [0.14, 0.2], [10, 60]);
+  // Card stays between back (z-30) and front (z-40) panels — only visible as it exits the top edge
 
   return (
     <div ref={containerRef} className="h-[300vh] relative">
@@ -27,8 +26,8 @@ const EnvelopeAnimation = () => {
         >
           {/* === INVITATION CARD (starts inside, slides up and out) === */}
           <motion.div
-            style={{ y: cardY, scale: cardScale, zIndex: cardZIndex }}
-            className="absolute left-3 right-3 top-3 bottom-3 rounded-md flex flex-col items-center justify-center"
+            style={{ y: cardY, scale: cardScale }}
+            className="absolute left-3 right-3 top-3 bottom-3 z-[35] rounded-md flex flex-col items-center justify-center"
           >
             <div
               className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-4"
