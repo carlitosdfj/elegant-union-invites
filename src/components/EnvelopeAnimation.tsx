@@ -10,86 +10,169 @@ const EnvelopeAnimation = () => {
   });
 
   const flapRotate = useTransform(scrollYProgress, [0, 0.25], [0, 180]);
-  const cardY = useTransform(scrollYProgress, [0.15, 0.6], [0, -340]);
+  const cardY = useTransform(scrollYProgress, [0.15, 0.6], [0, -360]);
   const cardScale = useTransform(scrollYProgress, [0.55, 0.8], [1, 1.05]);
   const envelopeOpacity = useTransform(scrollYProgress, [0.55, 0.75], [1, 0]);
   const containerScale = useTransform(scrollYProgress, [0.75, 1], [1, 0.95]);
   const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
 
+  const envelopeW = "w-[320px] sm:w-[420px]";
+  const envelopeH = "h-[220px] sm:h-[280px]";
+
   return (
     <div ref={containerRef} className="h-[300vh] relative">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <motion.div
-          style={{ scale: containerScale }}
-          className="relative w-[320px] h-[220px] sm:w-[420px] sm:h-[280px]"
+          style={{ scale: containerScale, perspective: 1000 }}
+          className={`relative ${envelopeW} ${envelopeH}`}
         >
-          {/* ===== LAYER 1: ENVELOPE BACK (z-20) ===== */}
+          {/* ===== LAYER 1: ENVELOPE BACK PANEL (z-20) ===== */}
           <motion.div
             style={{ opacity: envelopeOpacity }}
-            className="absolute inset-0 z-[20] rounded-lg"
+            className="absolute inset-0 z-[20] rounded-lg overflow-hidden"
           >
+            {/* Solid back */}
             <div
               className="absolute inset-0 bg-envelope-dark rounded-lg"
               style={{
                 boxShadow:
-                  "0 12px 40px -8px hsla(22, 30%, 35%, 0.35), 0 4px 12px -4px hsla(22, 30%, 35%, 0.2)",
+                  "0 14px 45px -10px hsla(22, 30%, 30%, 0.4), 0 4px 14px -4px hsla(22, 30%, 30%, 0.2)",
+                border: "1px solid hsla(22, 25%, 65%, 0.5)",
               }}
             />
-            {/* Inner fold lines for realism */}
-            <div
-              className="absolute inset-0 opacity-20"
-              style={{
-                background:
-                  "linear-gradient(135deg, transparent 40%, hsla(22,20%,60%,0.3) 50%, transparent 60%), linear-gradient(-135deg, transparent 40%, hsla(22,20%,60%,0.3) 50%, transparent 60%)",
-              }}
-            />
-          </motion.div>
 
-          {/* ===== LAYER 2: INVITATION CARD (z-25, slides up) ===== */}
-          <motion.div
-            style={{ y: cardY, scale: cardScale }}
-            className="absolute left-4 right-4 top-4 bottom-4 z-[25]"
-          >
-            <div
-              className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-5"
-              style={{ boxShadow: "0 6px 24px -6px hsla(22, 25%, 50%, 0.3)" }}
-            >
-              <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
-                Estás invitado a la boda de
-              </p>
-              <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
-                Sebastián
-              </h2>
-              <p className="font-serif text-xl sm:text-2xl text-warm-brown my-1">&amp;</p>
-              <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
-                Sara
-              </h2>
-              <div className="w-16 h-px bg-warm-brown my-3" />
-              <p className="font-sans-detail text-[10px] sm:text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                21 de Agosto, 2026
-              </p>
+            {/* Left fold triangle with border */}
+            <div className="absolute inset-0">
+              <svg className="w-full h-full" viewBox="0 0 420 280" preserveAspectRatio="none">
+                {/* Left fold */}
+                <polygon
+                  points="0,0 210,140 0,280"
+                  fill="hsla(22, 30%, 80%, 0.15)"
+                />
+                <line
+                  x1="0" y1="0" x2="210" y2="140"
+                  stroke="hsla(22, 25%, 60%, 0.4)"
+                  strokeWidth="1"
+                />
+                <line
+                  x1="0" y1="280" x2="210" y2="140"
+                  stroke="hsla(22, 25%, 60%, 0.4)"
+                  strokeWidth="1"
+                />
+                {/* Right fold */}
+                <polygon
+                  points="420,0 210,140 420,280"
+                  fill="hsla(22, 30%, 80%, 0.15)"
+                />
+                <line
+                  x1="420" y1="0" x2="210" y2="140"
+                  stroke="hsla(22, 25%, 60%, 0.4)"
+                  strokeWidth="1"
+                />
+                <line
+                  x1="420" y1="280" x2="210" y2="140"
+                  stroke="hsla(22, 25%, 60%, 0.4)"
+                  strokeWidth="1"
+                />
+                {/* Bottom fold */}
+                <polygon
+                  points="0,280 210,140 420,280"
+                  fill="hsla(22, 30%, 75%, 0.12)"
+                />
+                <line
+                  x1="0" y1="280" x2="210" y2="140"
+                  stroke="hsla(22, 25%, 60%, 0.3)"
+                  strokeWidth="0.5"
+                />
+                <line
+                  x1="420" y1="280" x2="210" y2="140"
+                  stroke="hsla(22, 25%, 60%, 0.3)"
+                  strokeWidth="0.5"
+                />
+              </svg>
             </div>
           </motion.div>
 
-          {/* ===== LAYER 3: ENVELOPE FRONT (z-30) — solid, fully covers card ===== */}
+          {/* ===== LAYER 2: CARD — inside a clip wrapper (z-25) ===== */}
+          {/* This wrapper extends above the envelope so the card is visible 
+              only when it slides UP past the envelope's top edge */}
+          <div
+            className="absolute z-[25] pointer-events-none"
+            style={{
+              left: 16,
+              right: 16,
+              top: -380,
+              bottom: 16,
+              overflow: "hidden",
+            }}
+          >
+            <motion.div
+              style={{ y: cardY, scale: cardScale }}
+              className="absolute bottom-0 left-0 right-0"
+            >
+              <div
+                className="bg-card rounded-md flex flex-col items-center justify-center p-5 sm:p-6"
+                style={{
+                  height: "188px",
+                  boxShadow: "0 8px 30px -8px hsla(22, 25%, 50%, 0.35)",
+                }}
+              >
+                <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
+                  Estás invitado a la boda de
+                </p>
+                <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
+                  Sebastián
+                </h2>
+                <p className="font-serif text-xl sm:text-2xl text-warm-brown my-1">
+                  &amp;
+                </p>
+                <h2 className="font-serif text-3xl sm:text-4xl font-light text-foreground leading-tight text-center">
+                  Sara
+                </h2>
+                <div className="w-16 h-px bg-warm-brown my-3" />
+                <p className="font-sans-detail text-[10px] sm:text-xs tracking-[0.2em] text-muted-foreground uppercase">
+                  21 de Agosto, 2026
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ===== LAYER 3: ENVELOPE FRONT PANEL (z-30) ===== */}
           <motion.div
             style={{ opacity: envelopeOpacity }}
-            className="absolute inset-0 z-[30] pointer-events-none"
+            className="absolute inset-0 z-[30] pointer-events-none rounded-lg"
           >
-            {/* Full solid front panel */}
-            <div className="absolute inset-0 bg-secondary rounded-lg" />
-
-            {/* Top V-fold decorative line */}
+            {/* Solid front */}
             <div
-              className="absolute top-0 left-0 right-0 h-[45%] bg-envelope-dark opacity-25"
-              style={{ clipPath: "polygon(0 0, 50% 100%, 100% 0)" }}
+              className="absolute inset-0 bg-secondary rounded-lg"
+              style={{
+                border: "1px solid hsla(22, 25%, 68%, 0.6)",
+              }}
             />
 
-            {/* Subtle bottom edge highlight */}
-            <div
-              className="absolute bottom-0 left-0 right-0 h-[1px]"
-              style={{ background: "hsla(22, 40%, 96%, 0.4)" }}
-            />
+            {/* V-fold line decoration with shadows */}
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 420 280"
+              preserveAspectRatio="none"
+            >
+              {/* V shadow area */}
+              <polygon
+                points="0,0 210,140 420,0"
+                fill="hsla(22, 25%, 60%, 0.08)"
+              />
+              {/* V fold lines */}
+              <line
+                x1="0" y1="0" x2="210" y2="140"
+                stroke="hsla(22, 25%, 55%, 0.35)"
+                strokeWidth="1.2"
+              />
+              <line
+                x1="420" y1="0" x2="210" y2="140"
+                stroke="hsla(22, 25%, 55%, 0.35)"
+                strokeWidth="1.2"
+              />
+            </svg>
           </motion.div>
 
           {/* ===== LAYER 4: WAX SEAL (z-35) ===== */}
@@ -100,15 +183,22 @@ const EnvelopeAnimation = () => {
             <motion.div
               initial={{ scale: 1 }}
               animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-warm-brown flex items-center justify-center"
-              style={{ boxShadow: "0 3px 12px -2px hsla(22, 30%, 28%, 0.45)" }}
+              style={{
+                boxShadow:
+                  "0 3px 12px -2px hsla(22, 30%, 28%, 0.5), inset 0 1px 2px hsla(22, 40%, 80%, 0.3)",
+              }}
             >
               <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground fill-primary-foreground" />
             </motion.div>
           </motion.div>
 
-          {/* ===== LAYER 5: ENVELOPE FLAP (z-40, opens upward) ===== */}
+          {/* ===== LAYER 5: ENVELOPE FLAP (z-40) ===== */}
           <motion.div
             style={{
               rotateX: flapRotate,
@@ -117,26 +207,53 @@ const EnvelopeAnimation = () => {
             }}
             className="absolute top-0 left-0 right-0 z-[40]"
           >
-            {/* Front face of flap (visible when closed — triangle pointing down) */}
-            <div
-              className="absolute top-0 left-0 right-0 bg-secondary"
+            {/* Front face (closed — triangle pointing down) */}
+            <svg
+              className="absolute top-0 left-0 w-full"
+              viewBox="0 0 420 150"
+              preserveAspectRatio="none"
               style={{
-                height: "140px",
-                clipPath: "polygon(0 0, 100% 0, 50% 100%)",
+                height: "68%",
                 backfaceVisibility: "hidden",
-                boxShadow: "0 4px 8px -2px hsla(22, 30%, 35%, 0.2)",
               }}
-            />
-            {/* Back face of flap (visible when opened) */}
-            <div
-              className="absolute top-0 left-0 right-0 bg-envelope-dark"
+            >
+              <defs>
+                <filter id="flapShadow">
+                  <feDropShadow
+                    dx="0"
+                    dy="3"
+                    stdDeviation="4"
+                    floodColor="hsla(22,30%,30%,0.2)"
+                  />
+                </filter>
+              </defs>
+              <polygon
+                points="0,0 420,0 210,150"
+                fill="hsl(22, 30%, 80%)"
+                stroke="hsla(22, 25%, 60%, 0.5)"
+                strokeWidth="1"
+                filter="url(#flapShadow)"
+              />
+            </svg>
+
+            {/* Back face (open — inner color) */}
+            <svg
+              className="absolute top-0 left-0 w-full"
+              viewBox="0 0 420 150"
+              preserveAspectRatio="none"
               style={{
-                height: "140px",
-                clipPath: "polygon(0 0, 100% 0, 50% 100%)",
+                height: "68%",
                 backfaceVisibility: "hidden",
                 transform: "rotateX(180deg)",
               }}
-            />
+            >
+              <polygon
+                points="0,0 420,0 210,150"
+                fill="hsl(22, 40%, 87%)"
+                stroke="hsla(22, 25%, 60%, 0.4)"
+                strokeWidth="1"
+              />
+            </svg>
           </motion.div>
         </motion.div>
 
