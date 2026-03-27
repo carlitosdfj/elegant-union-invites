@@ -9,13 +9,13 @@ const EnvelopeAnimation = () => {
     offset: ["start start", "end start"],
   });
 
-  // Flap opens toward the viewer (rotateX goes from 0 to -180)
   const flapRotate = useTransform(scrollYProgress, [0, 0.3], [0, -180]);
-  // Card slides upward out of the envelope
   const cardY = useTransform(scrollYProgress, [0.25, 0.7], [0, -350]);
   const cardScale = useTransform(scrollYProgress, [0.5, 0.8], [1, 1.1]);
   const envelopeOpacity = useTransform(scrollYProgress, [0.6, 0.85], [1, 0]);
   const containerScale = useTransform(scrollYProgress, [0.7, 1], [1, 0.9]);
+  // Card z-index rises above envelope once flap opens
+  const cardZ = useTransform(scrollYProgress, [0.2, 0.25], [5, 40]);
 
   return (
     <div ref={containerRef} className="h-[300vh] relative">
@@ -26,8 +26,8 @@ const EnvelopeAnimation = () => {
         >
           {/* Card inside — sits behind the envelope body */}
           <motion.div
-            style={{ y: cardY, scale: cardScale }}
-            className="absolute inset-2 bg-card rounded-md shadow-lg z-[5] flex flex-col items-center justify-center p-6"
+            style={{ y: cardY, scale: cardScale, zIndex: cardZ }}
+            className="absolute inset-2 bg-card rounded-md shadow-lg flex flex-col items-center justify-center p-6"
           >
             <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
               Estás invitado a la boda de
