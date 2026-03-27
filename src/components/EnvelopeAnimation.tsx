@@ -10,28 +10,49 @@ const EnvelopeAnimation = () => {
   });
 
   const flapRotate = useTransform(scrollYProgress, [0, 0.25], [0, 180]);
-  const cardY = useTransform(scrollYProgress, [0.15, 0.6], [0, -320]);
-  const cardScale = useTransform(scrollYProgress, [0.5, 0.8], [1, 1.05]);
-  const envelopeOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
+  const cardY = useTransform(scrollYProgress, [0.15, 0.6], [0, -340]);
+  const cardScale = useTransform(scrollYProgress, [0.55, 0.8], [1, 1.05]);
+  const envelopeOpacity = useTransform(scrollYProgress, [0.55, 0.75], [1, 0]);
   const containerScale = useTransform(scrollYProgress, [0.75, 1], [1, 0.95]);
   const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  // Card stays between back (z-30) and front (z-40) panels — only visible as it exits the top edge
 
   return (
     <div ref={containerRef} className="h-[300vh] relative">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ scale: containerScale }}
-          className="relative w-[300px] h-[200px] sm:w-[400px] sm:h-[260px]"
+          className="relative w-[320px] h-[220px] sm:w-[420px] sm:h-[280px]"
         >
-          {/* === INVITATION CARD (starts inside, slides up and out) === */}
+          {/* ===== LAYER 1: ENVELOPE BACK (z-20) ===== */}
           <motion.div
-            style={{ y: cardY, scale: cardScale }}
-            className="absolute left-3 right-3 top-3 bottom-3 z-[35] rounded-md flex flex-col items-center justify-center"
+            style={{ opacity: envelopeOpacity }}
+            className="absolute inset-0 z-[20] rounded-lg"
           >
             <div
-              className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-4"
-              style={{ boxShadow: "0 8px 30px -8px hsla(22, 25%, 55%, 0.35)" }}
+              className="absolute inset-0 bg-envelope-dark rounded-lg"
+              style={{
+                boxShadow:
+                  "0 12px 40px -8px hsla(22, 30%, 35%, 0.35), 0 4px 12px -4px hsla(22, 30%, 35%, 0.2)",
+              }}
+            />
+            {/* Inner fold lines for realism */}
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                background:
+                  "linear-gradient(135deg, transparent 40%, hsla(22,20%,60%,0.3) 50%, transparent 60%), linear-gradient(-135deg, transparent 40%, hsla(22,20%,60%,0.3) 50%, transparent 60%)",
+              }}
+            />
+          </motion.div>
+
+          {/* ===== LAYER 2: INVITATION CARD (z-25, slides up) ===== */}
+          <motion.div
+            style={{ y: cardY, scale: cardScale }}
+            className="absolute left-4 right-4 top-4 bottom-4 z-[25]"
+          >
+            <div
+              className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-5"
+              style={{ boxShadow: "0 6px 24px -6px hsla(22, 25%, 50%, 0.3)" }}
             >
               <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
                 Estás invitado a la boda de
@@ -50,87 +71,63 @@ const EnvelopeAnimation = () => {
             </div>
           </motion.div>
 
-          {/* === ENVELOPE BODY === */}
+          {/* ===== LAYER 3: ENVELOPE FRONT (z-30) — solid, fully covers card ===== */}
           <motion.div
             style={{ opacity: envelopeOpacity }}
             className="absolute inset-0 z-[30] pointer-events-none"
           >
-            {/* Back panel with shadow for definition */}
+            {/* Full solid front panel */}
+            <div className="absolute inset-0 bg-secondary rounded-lg" />
+
+            {/* Top V-fold decorative line */}
             <div
-              className="absolute inset-0 bg-secondary rounded-lg"
-              style={{
-                boxShadow:
-                  "0 10px 40px -10px hsla(22, 30%, 40%, 0.4), 0 2px 8px -2px hsla(22, 30%, 40%, 0.2), inset 0 1px 0 0 hsla(22, 40%, 96%, 0.5)",
-              }}
+              className="absolute top-0 left-0 right-0 h-[45%] bg-envelope-dark opacity-25"
+              style={{ clipPath: "polygon(0 0, 50% 100%, 100% 0)" }}
             />
 
-            {/* Left inner fold */}
+            {/* Subtle bottom edge highlight */}
             <div
-              className="absolute inset-0 bg-envelope-dark opacity-50"
-              style={{ clipPath: "polygon(0 0, 50% 50%, 0 100%)" }}
-            />
-            {/* Right inner fold */}
-            <div
-              className="absolute inset-0 bg-envelope-dark opacity-50"
-              style={{ clipPath: "polygon(100% 0, 50% 50%, 100% 100%)" }}
-            />
-            {/* Bottom inner fold */}
-            <div
-              className="absolute inset-0 bg-envelope-dark opacity-30"
-              style={{ clipPath: "polygon(0 100%, 50% 50%, 100% 100%)" }}
+              className="absolute bottom-0 left-0 right-0 h-[1px]"
+              style={{ background: "hsla(22, 40%, 96%, 0.4)" }}
             />
           </motion.div>
 
-          {/* === ENVELOPE FRONT PANEL (covers card from front) === */}
+          {/* ===== LAYER 4: WAX SEAL (z-35) ===== */}
           <motion.div
             style={{ opacity: envelopeOpacity }}
-            className="absolute inset-0 z-[40] pointer-events-none"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[35]"
           >
-            <div
-              className="absolute bottom-0 left-0 right-0 bg-secondary"
-              style={{
-                height: "60%",
-                clipPath: "polygon(0 30%, 50% 0%, 100% 30%, 100% 100%, 0 100%)",
-                borderRadius: "0 0 0.5rem 0.5rem",
-                boxShadow: "0 -2px 6px -2px hsla(22, 30%, 40%, 0.15)",
-              }}
-            />
-
-            {/* Wax seal */}
-            <div className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]">
-              <motion.div
-                initial={{ scale: 1 }}
-                animate={{ scale: [1, 1.08, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-warm-brown flex items-center justify-center"
-                style={{ boxShadow: "0 3px 10px -2px hsla(22, 30%, 30%, 0.4)" }}
-              >
-                <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground fill-primary-foreground" />
-              </motion.div>
-            </div>
+            <motion.div
+              initial={{ scale: 1 }}
+              animate={{ scale: [1, 1.08, 1] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-warm-brown flex items-center justify-center"
+              style={{ boxShadow: "0 3px 12px -2px hsla(22, 30%, 28%, 0.45)" }}
+            >
+              <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground fill-primary-foreground" />
+            </motion.div>
           </motion.div>
 
-          {/* === ENVELOPE FLAP (triangular, opens upward) === */}
+          {/* ===== LAYER 5: ENVELOPE FLAP (z-40, opens upward) ===== */}
           <motion.div
             style={{
               rotateX: flapRotate,
               transformOrigin: "top center",
               opacity: envelopeOpacity,
-              perspective: 800,
             }}
-            className="absolute top-0 left-0 right-0 z-[45]"
+            className="absolute top-0 left-0 right-0 z-[40]"
           >
-            {/* Front face (visible when closed) */}
+            {/* Front face of flap (visible when closed — triangle pointing down) */}
             <div
               className="absolute top-0 left-0 right-0 bg-secondary"
               style={{
                 height: "140px",
                 clipPath: "polygon(0 0, 100% 0, 50% 100%)",
                 backfaceVisibility: "hidden",
-                boxShadow: "0 4px 12px -4px hsla(22, 30%, 40%, 0.25)",
+                boxShadow: "0 4px 8px -2px hsla(22, 30%, 35%, 0.2)",
               }}
             />
-            {/* Back face (visible when opened) */}
+            {/* Back face of flap (visible when opened) */}
             <div
               className="absolute top-0 left-0 right-0 bg-envelope-dark"
               style={{
