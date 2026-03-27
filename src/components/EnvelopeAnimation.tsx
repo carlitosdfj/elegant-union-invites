@@ -9,18 +9,14 @@ const EnvelopeAnimation = () => {
     offset: ["start start", "end start"],
   });
 
-  // Animation phases:
-  // 0.00–0.25: flap opens (rotates from 0 to 180)
-  // 0.20–0.60: card slides up out of envelope
-  // 0.50–0.70: envelope fades out
-  // 0.60–0.85: card scales slightly and centers
-
   const flapRotate = useTransform(scrollYProgress, [0, 0.25], [0, 180]);
   const cardY = useTransform(scrollYProgress, [0.15, 0.6], [0, -320]);
   const cardScale = useTransform(scrollYProgress, [0.5, 0.8], [1, 1.05]);
   const envelopeOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
   const containerScale = useTransform(scrollYProgress, [0.75, 1], [1, 0.95]);
   const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+  // Card z-index: starts behind envelope front (z-10), rises above everything (z-60) as it slides out
+  const cardZIndex = useTransform(scrollYProgress, [0.14, 0.2], [10, 60]);
 
   return (
     <div ref={containerRef} className="h-[300vh] relative">
@@ -29,14 +25,15 @@ const EnvelopeAnimation = () => {
           style={{ scale: containerScale }}
           className="relative w-[300px] h-[200px] sm:w-[400px] sm:h-[260px]"
         >
-          {/* === INVITATION CARD (starts inside, slides up) === */}
+          {/* === INVITATION CARD (starts inside, slides up and out) === */}
           <motion.div
-            style={{ y: cardY, scale: cardScale }}
-            className="absolute left-3 right-3 top-3 bottom-3 z-[50] rounded-md shadow-lg flex flex-col items-center justify-center p-6"
-            // Use inline style for the card background to keep it crisp
-            // We use the card token
+            style={{ y: cardY, scale: cardScale, zIndex: cardZIndex }}
+            className="absolute left-3 right-3 top-3 bottom-3 rounded-md flex flex-col items-center justify-center"
           >
-            <div className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-4">
+            <div
+              className="w-full h-full bg-card rounded-md flex flex-col items-center justify-center p-4"
+              style={{ boxShadow: "0 8px 30px -8px hsla(22, 25%, 55%, 0.35)" }}
+            >
               <p className="font-sans-detail text-muted-foreground text-[10px] sm:text-xs tracking-[0.3em] uppercase mb-2">
                 Estás invitado a la boda de
               </p>
@@ -54,54 +51,60 @@ const EnvelopeAnimation = () => {
             </div>
           </motion.div>
 
-          {/* === ENVELOPE BODY (rectangular back) === */}
+          {/* === ENVELOPE BODY === */}
           <motion.div
             style={{ opacity: envelopeOpacity }}
-            className="absolute inset-0 z-[51] pointer-events-none"
+            className="absolute inset-0 z-[30] pointer-events-none"
           >
-            {/* Back panel */}
-            <div className="absolute inset-0 bg-secondary rounded-lg shadow-2xl" />
-
-            {/* Left inner fold triangle */}
+            {/* Back panel with shadow for definition */}
             <div
-              className="absolute inset-0 bg-envelope-dark opacity-60"
+              className="absolute inset-0 bg-secondary rounded-lg"
               style={{
-                clipPath: "polygon(0 0, 50% 50%, 0 100%)",
-              }}
-            />
-            {/* Right inner fold triangle */}
-            <div
-              className="absolute inset-0 bg-envelope-dark opacity-60"
-              style={{
-                clipPath: "polygon(100% 0, 50% 50%, 100% 100%)",
+                boxShadow:
+                  "0 10px 40px -10px hsla(22, 30%, 40%, 0.4), 0 2px 8px -2px hsla(22, 30%, 40%, 0.2), inset 0 1px 0 0 hsla(22, 40%, 96%, 0.5)",
               }}
             />
 
-            {/* Bottom flap (the front face of the envelope) */}
+            {/* Left inner fold */}
             <div
-              className="absolute bottom-0 left-0 right-0 bg-secondary z-[52]"
+              className="absolute inset-0 bg-envelope-dark opacity-50"
+              style={{ clipPath: "polygon(0 0, 50% 50%, 0 100%)" }}
+            />
+            {/* Right inner fold */}
+            <div
+              className="absolute inset-0 bg-envelope-dark opacity-50"
+              style={{ clipPath: "polygon(100% 0, 50% 50%, 100% 100%)" }}
+            />
+            {/* Bottom inner fold */}
+            <div
+              className="absolute inset-0 bg-envelope-dark opacity-30"
+              style={{ clipPath: "polygon(0 100%, 50% 50%, 100% 100%)" }}
+            />
+          </motion.div>
+
+          {/* === ENVELOPE FRONT PANEL (covers card from front) === */}
+          <motion.div
+            style={{ opacity: envelopeOpacity }}
+            className="absolute inset-0 z-[40] pointer-events-none"
+          >
+            <div
+              className="absolute bottom-0 left-0 right-0 bg-secondary"
               style={{
                 height: "60%",
                 clipPath: "polygon(0 30%, 50% 0%, 100% 30%, 100% 100%, 0 100%)",
                 borderRadius: "0 0 0.5rem 0.5rem",
+                boxShadow: "0 -2px 6px -2px hsla(22, 30%, 40%, 0.15)",
               }}
-            >
-              {/* Subtle inner shadow line */}
-              <div
-                className="absolute top-0 left-0 right-0 h-[1px] bg-envelope-dark opacity-30"
-                style={{
-                  clipPath: "polygon(0 0, 50% 0, 100% 0)",
-                }}
-              />
-            </div>
+            />
 
-            {/* Decorative wax seal */}
-            <div className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[53]">
+            {/* Wax seal */}
+            <div className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]">
               <motion.div
                 initial={{ scale: 1 }}
                 animate={{ scale: [1, 1.08, 1] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-warm-brown shadow-md flex items-center justify-center"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-warm-brown flex items-center justify-center"
+                style={{ boxShadow: "0 3px 10px -2px hsla(22, 30%, 30%, 0.4)" }}
               >
                 <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground fill-primary-foreground" />
               </motion.div>
@@ -116,18 +119,19 @@ const EnvelopeAnimation = () => {
               opacity: envelopeOpacity,
               perspective: 800,
             }}
-            className="absolute top-0 left-0 right-0 z-[54]"
+            className="absolute top-0 left-0 right-0 z-[45]"
           >
-            {/* Front face of flap (visible when closed — pointing down) */}
+            {/* Front face (visible when closed) */}
             <div
-              className="absolute top-0 left-0 right-0 bg-secondary shadow-sm"
+              className="absolute top-0 left-0 right-0 bg-secondary"
               style={{
                 height: "140px",
                 clipPath: "polygon(0 0, 100% 0, 50% 100%)",
                 backfaceVisibility: "hidden",
+                boxShadow: "0 4px 12px -4px hsla(22, 30%, 40%, 0.25)",
               }}
             />
-            {/* Back face of flap (visible when opened — shows inner color) */}
+            {/* Back face (visible when opened) */}
             <div
               className="absolute top-0 left-0 right-0 bg-envelope-dark"
               style={{
