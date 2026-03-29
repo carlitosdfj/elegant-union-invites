@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import logoSS from "@/assets/logo-ss.jpeg";
 
 const targetDate = new Date("2026-08-21T16:00:00").getTime();
 
@@ -37,6 +38,12 @@ const HeroSection = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
       >
+        <img
+          src={logoSS}
+          alt="Logo Sebastián & Sara"
+          className="w-28 h-28 sm:w-36 sm:h-36 rounded-full mx-auto mb-8 object-cover shadow-md"
+        />
+
         <p className="font-sans-detail text-xs sm:text-sm tracking-[0.4em] uppercase text-muted-foreground mb-6">
           Nos casamos
         </p>
