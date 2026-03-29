@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import dressCodeImg from "@/assets/dress-code.png";
 
 const forbiddenColors = [
   { name: "Blanco", color: "#FFFFFF", border: true },
@@ -20,9 +21,15 @@ const DressCodeSection = () => {
         <h2 className="font-serif text-4xl sm:text-5xl text-foreground font-light mb-4">
           Código de Vestimenta
         </h2>
-        <p className="font-sans-detail text-lg tracking-[0.15em] uppercase text-warm-brown mb-10">
+        <p className="font-sans-detail text-lg tracking-[0.15em] uppercase text-warm-brown mb-8">
           Formal
         </p>
+
+        <img
+          src={dressCodeImg}
+          alt="Referencia de vestimenta formal: vestido largo y traje"
+          className="mx-auto w-64 sm:w-80 mb-10 opacity-80"
+        />
 
         <div className="mb-6">
           <p className="font-sans-detail text-xs tracking-[0.2em] uppercase text-muted-foreground mb-6">
@@ -32,27 +39,13 @@ const DressCodeSection = () => {
           <div className="flex justify-center gap-6 sm:gap-8 flex-wrap">
             {forbiddenColors.map((item) => (
               <div key={item.name} className="flex flex-col items-center gap-2">
-                {/* Dress silhouette */}
-                <div className="relative w-16 h-24 sm:w-20 sm:h-28">
-                  <svg viewBox="0 0 60 80" className="w-full h-full">
-                    {/* Simple dress silhouette */}
-                    <path
-                      d="M30 8 C25 8, 20 12, 18 18 L14 35 C14 35, 22 32, 30 32 C38 32, 46 35, 46 35 L42 18 C40 12, 35 8, 30 8 Z"
-                      fill={item.color}
-                      stroke={item.border ? "#ccc" : "none"}
-                      strokeWidth="1"
-                    />
-                    <path
-                      d="M14 35 L8 75 C8 75, 30 72, 52 75 L46 35 C46 35, 38 32, 30 32 C22 32, 14 35, 14 35 Z"
-                      fill={item.color}
-                      stroke={item.border ? "#ccc" : "none"}
-                      strokeWidth="1"
-                    />
-                    {/* X mark */}
-                    <line x1="18" y1="20" x2="42" y2="60" stroke="#C44" strokeWidth="3" strokeLinecap="round" />
-                    <line x1="42" y1="20" x2="18" y2="60" stroke="#C44" strokeWidth="3" strokeLinecap="round" />
-                  </svg>
-                </div>
+                <div
+                  className="w-10 h-10 rounded-full border-2"
+                  style={{
+                    backgroundColor: item.color,
+                    borderColor: item.border ? "hsl(var(--muted-foreground))" : item.color,
+                  }}
+                />
                 <span className="font-sans-detail text-xs text-muted-foreground">
                   {item.name}
                 </span>

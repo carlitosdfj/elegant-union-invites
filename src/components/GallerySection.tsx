@@ -1,18 +1,12 @@
 import { motion } from "framer-motion";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
-import gallery6 from "@/assets/gallery-6.jpg";
+import couple1 from "@/assets/couple-1.jpg";
+import couple2 from "@/assets/couple-2.jpg";
+import couple3 from "@/assets/couple-3.jpg";
 
 const images = [
-  { src: gallery1, tall: true },
-  { src: gallery2, tall: false },
-  { src: gallery3, tall: true },
-  { src: gallery4, tall: false },
-  { src: gallery5, tall: true },
-  { src: gallery6, tall: true },
+  { src: couple1, alt: "Sebastián y Sara caminando de la mano" },
+  { src: couple2, alt: "Sebastián y Sara mostrando el anillo" },
+  { src: couple3, alt: "Detalle del anillo de compromiso" },
 ];
 
 const GallerySection = () => {
@@ -39,7 +33,7 @@ const GallerySection = () => {
           >
             <img
               src={img.src}
-              alt={`Pre-wedding photo ${index + 1}`}
+              alt={img.alt}
               className="w-full rounded-lg object-cover shadow-md hover:shadow-xl transition-shadow duration-300"
               loading="lazy"
             />
