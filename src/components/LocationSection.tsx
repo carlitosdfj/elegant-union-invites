@@ -32,7 +32,7 @@ const LocationSection = () => {
           asChild
         >
           <a
-            href="https://share.google/E3Ulkxrx8YC3GC6AN"
+            href="https://maps.app.goo.gl/QpmsAFdHpUUqv6Pt6"
             target="_blank"
             rel="noopener noreferrer"
           >
