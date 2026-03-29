@@ -10,7 +10,7 @@ const infoItems = [
   {
     icon: UserX,
     title: "Evento solo para adultos",
-    description: "Por favor ten en cuenta que es un evento exclusivamente para adultos.",
+    description: "Nos encantan los niños, pero en esta ocasión queremos celebrar solo con adultos.",
   },
   {
     icon: Users,
