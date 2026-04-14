@@ -69,7 +69,7 @@ const RSVPSection = () => {
         viewport={{ once: true }}
         className="max-w-md mx-auto"
       >
-        <h2 className="font-serif text-4xl sm:text-5xl text-center mb-4 text-foreground font-light">
+        <h2 className="font-script text-4xl sm:text-5xl text-center mb-4 text-foreground">
           Confirma tu Asistencia
         </h2>
         <p className="font-sans-detail text-xs text-center text-muted-foreground mb-10 tracking-[0.15em]">

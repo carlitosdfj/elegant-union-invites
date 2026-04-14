@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -43,6 +43,9 @@
     --sage-light: 70 7% 73%;
     --section-alt: 22 35% 89%;
     --section-warm: 22 30% 86%;
+    --dusty-rose: 350 30% 72%;
+    --soft-olive: 95 15% 60%;
+    --blush: 15 45% 88%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -76,6 +79,10 @@
 
   .font-sans-detail {
     font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-script {
+    font-family: 'Dancing Script', cursive;
   }
 
   .section-alt {
