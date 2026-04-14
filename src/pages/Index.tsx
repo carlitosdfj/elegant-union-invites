@@ -8,7 +8,8 @@ import GallerySection from "@/components/GallerySection";
 import ImportantInfoSection from "@/components/ImportantInfoSection";
 import RSVPSection from "@/components/RSVPSection";
 import WatercolorBlotch from "@/components/WatercolorBlotch";
-import OrganicDivider from "@/components/OrganicDivider";
+import FloralDivider from "@/components/FloralDivider";
+import WatercolorWash from "@/components/WatercolorWash";
 
 const Index = () => {
   return (
@@ -28,40 +29,50 @@ const Index = () => {
       <main className="relative z-[2]">
         <HeroSection />
 
-        <OrganicDivider />
+        <FloralDivider variant={1} align="right" />
         <div className="section-alt relative">
-          <WatercolorBlotch variant={2} color="hsl(var(--soft-olive))" size={180} opacity={0.08} className="top-4 right-4" />
-          <TimelineSection />
+          <WatercolorWash variant={2} className="top-0 -left-20 w-64 sm:w-80" opacity={0.1} />
+          <div className="relative z-[1]">
+            <TimelineSection />
+          </div>
         </div>
 
-        <OrganicDivider />
+        <FloralDivider variant={2} align="left" flip />
         <div className="relative">
-          <WatercolorBlotch variant={4} color="hsl(var(--dusty-rose))" size={160} opacity={0.06} className="-top-8 -left-8" />
-          <LocationSection />
+          <div className="relative z-[1]">
+            <LocationSection />
+          </div>
         </div>
 
-        <OrganicDivider />
+        <FloralDivider variant={3} align="right" />
         <div className="section-warm relative">
-          <WatercolorBlotch variant={1} color="hsl(var(--warm-brown))" size={150} opacity={0.06} className="bottom-0 right-0" />
-          <DressCodeSection />
+          <WatercolorWash variant={1} className="bottom-0 -right-16 w-56 sm:w-72" opacity={0.12} />
+          <div className="relative z-[1]">
+            <DressCodeSection />
+          </div>
         </div>
 
-        <OrganicDivider />
+        <FloralDivider variant={1} align="left" flip />
         <div className="relative">
-          <WatercolorBlotch variant={5} color="hsl(var(--soft-olive))" size={200} opacity={0.07} className="top-8 -left-12" />
-          <GallerySection />
+          <WatercolorWash variant={2} className="top-8 -right-24 w-64 sm:w-80" opacity={0.08} />
+          <div className="relative z-[1]">
+            <GallerySection />
+          </div>
         </div>
 
-        <OrganicDivider />
+        <FloralDivider variant={2} align="right" />
         <div className="section-alt relative">
-          <WatercolorBlotch variant={3} color="hsl(var(--dusty-rose))" size={180} opacity={0.06} className="top-0 -right-8" />
-          <ImportantInfoSection />
+          <WatercolorWash variant={1} className="-top-8 -left-16 w-56 sm:w-72" opacity={0.1} />
+          <div className="relative z-[1]">
+            <ImportantInfoSection />
+          </div>
         </div>
 
-        <OrganicDivider />
+        <FloralDivider variant={3} align="left" flip />
         <div className="relative">
-          <WatercolorBlotch variant={2} color="hsl(var(--warm-brown))" size={160} opacity={0.05} className="bottom-4 left-4" />
-          <RSVPSection />
+          <div className="relative z-[1]">
+            <RSVPSection />
+          </div>
         </div>
 
         {/* Footer */}
