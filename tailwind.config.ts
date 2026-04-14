@@ -56,6 +56,8 @@ export default {
         "warm-brown": "hsl(var(--warm-brown))",
         sage: "hsl(var(--sage))",
         "sage-light": "hsl(var(--sage-light))",
+        "section-alt": "hsl(var(--section-alt))",
+        "section-warm": "hsl(var(--section-warm))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

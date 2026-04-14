@@ -41,6 +41,8 @@
     --warm-brown: 22 25% 55%;
     --sage: 80 8% 65%;
     --sage-light: 70 7% 73%;
+    --section-alt: 22 35% 89%;
+    --section-warm: 22 30% 86%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -74,5 +76,19 @@
 
   .font-sans-detail {
     font-family: 'Montserrat', sans-serif;
+  }
+
+  .section-alt {
+    background-color: hsl(var(--section-alt));
+  }
+
+  .section-warm {
+    background-color: hsl(var(--section-warm));
+  }
+
+  .subtle-texture {
+    background-image: radial-gradient(circle at 20% 50%, hsl(var(--warm-brown) / 0.03) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 20%, hsl(var(--sage) / 0.05) 0%, transparent 50%),
+                       radial-gradient(circle at 50% 80%, hsl(var(--warm-brown) / 0.02) 0%, transparent 50%);
   }
 }
