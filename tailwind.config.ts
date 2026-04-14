@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         serif: ['"Cormorant Garamond"', 'serif'],
         sans: ['"Montserrat"', 'sans-serif'],
+        script: ['"Dancing Script"', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -58,6 +59,9 @@ export default {
         "sage-light": "hsl(var(--sage-light))",
         "section-alt": "hsl(var(--section-alt))",
         "section-warm": "hsl(var(--section-warm))",
+        "dusty-rose": "hsl(var(--dusty-rose))",
+        "soft-olive": "hsl(var(--soft-olive))",
+        "blush": "hsl(var(--blush))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
