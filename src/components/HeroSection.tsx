@@ -44,7 +44,7 @@ const HeroSection = () => {
           className="w-28 h-28 sm:w-36 sm:h-36 rounded-full mx-auto mb-8 object-cover shadow-md"
         />
 
-        <p className="font-sans-detail text-xs sm:text-sm tracking-[0.4em] uppercase text-muted-foreground mb-6">
+        <p className="font-script text-xl sm:text-2xl text-warm-brown mb-6">
           Nos casamos
         </p>
         <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl font-light text-foreground leading-[1.1]">
@@ -57,7 +57,7 @@ const HeroSection = () => {
 
         <div className="w-24 h-px bg-warm-brown mx-auto my-8" />
 
-        <p className="font-sans-detail text-sm sm:text-base tracking-[0.2em] text-muted-foreground uppercase">
+        <p className="font-script text-base sm:text-lg text-muted-foreground mt-1">
           Viernes, 21 de Agosto de 2026
         </p>
         <p className="font-sans-detail text-xs sm:text-sm tracking-[0.15em] text-muted-foreground mt-2">
