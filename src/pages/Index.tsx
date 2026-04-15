@@ -17,21 +17,25 @@ const Index = () => {
       <FallingPetals />
       <EnvelopeAnimation />
 
-      {/* Global watercolor blotches */}
-      <WatercolorBlotch variant={1} color="hsl(var(--dusty-rose))" size={300} opacity={0.07} className="top-[5%] -right-20" />
-      <WatercolorBlotch variant={3} color="hsl(var(--soft-olive))" size={250} opacity={0.06} className="top-[15%] -left-16" />
-      <WatercolorBlotch variant={2} color="hsl(var(--warm-brown))" size={200} opacity={0.05} className="top-[35%] -right-10" />
-      <WatercolorBlotch variant={4} color="hsl(var(--dusty-rose))" size={280} opacity={0.06} className="top-[50%] -left-24" />
-      <WatercolorBlotch variant={5} color="hsl(var(--soft-olive))" size={220} opacity={0.07} className="top-[65%] right-0" />
-      <WatercolorBlotch variant={1} color="hsl(var(--warm-brown))" size={260} opacity={0.05} className="top-[80%] -left-12" />
-      <WatercolorBlotch variant={3} color="hsl(var(--dusty-rose))" size={200} opacity={0.06} className="top-[92%] -right-16" />
+      {/* Global watercolor blotches — more visible */}
+      <WatercolorBlotch variant={1} color="hsl(var(--dusty-rose))" size={400} opacity={0.14} className="top-[3%] -right-24" />
+      <WatercolorBlotch variant={3} color="hsl(var(--soft-olive))" size={350} opacity={0.12} className="top-[10%] -left-20" />
+      <WatercolorBlotch variant={2} color="hsl(var(--warm-brown))" size={300} opacity={0.10} className="top-[22%] -right-16" />
+      <WatercolorBlotch variant={4} color="hsl(var(--dusty-rose))" size={380} opacity={0.12} className="top-[32%] -left-28" />
+      <WatercolorBlotch variant={5} color="hsl(var(--soft-olive))" size={320} opacity={0.13} className="top-[42%] right-0" />
+      <WatercolorBlotch variant={1} color="hsl(var(--warm-brown))" size={360} opacity={0.11} className="top-[52%] -left-16" />
+      <WatercolorBlotch variant={3} color="hsl(var(--dusty-rose))" size={300} opacity={0.12} className="top-[62%] -right-20" />
+      <WatercolorBlotch variant={2} color="hsl(var(--soft-olive))" size={340} opacity={0.10} className="top-[72%] -left-24" />
+      <WatercolorBlotch variant={4} color="hsl(var(--warm-brown))" size={280} opacity={0.11} className="top-[82%] -right-12" />
+      <WatercolorBlotch variant={5} color="hsl(var(--dusty-rose))" size={320} opacity={0.13} className="top-[90%] -left-20" />
 
       <main className="relative z-[2]">
         <HeroSection />
 
         <FloralDivider variant={1} align="right" />
         <div className="section-alt relative">
-          <WatercolorWash variant={2} className="top-0 -left-20 w-64 sm:w-80" opacity={0.1} />
+          <WatercolorWash variant={2} className="top-0 -left-20 w-72 sm:w-96" opacity={0.18} />
+          <WatercolorWash variant={1} className="bottom-0 -right-24 w-64 sm:w-80" opacity={0.14} />
           <div className="relative z-[1]">
             <TimelineSection />
           </div>
@@ -39,6 +43,8 @@ const Index = () => {
 
         <FloralDivider variant={2} align="left" flip />
         <div className="relative">
+          <WatercolorWash variant={1} className="top-4 -right-20 w-64 sm:w-80" opacity={0.15} />
+          <WatercolorWash variant={2} className="bottom-4 -left-16 w-56 sm:w-72" opacity={0.12} />
           <div className="relative z-[1]">
             <LocationSection />
           </div>
@@ -46,7 +52,8 @@ const Index = () => {
 
         <FloralDivider variant={3} align="right" />
         <div className="section-warm relative">
-          <WatercolorWash variant={1} className="bottom-0 -right-16 w-56 sm:w-72" opacity={0.12} />
+          <WatercolorWash variant={1} className="bottom-0 -right-16 w-72 sm:w-96" opacity={0.2} />
+          <WatercolorWash variant={2} className="top-4 -left-20 w-64 sm:w-80" opacity={0.15} />
           <div className="relative z-[1]">
             <DressCodeSection />
           </div>
@@ -54,7 +61,8 @@ const Index = () => {
 
         <FloralDivider variant={1} align="left" flip />
         <div className="relative">
-          <WatercolorWash variant={2} className="top-8 -right-24 w-64 sm:w-80" opacity={0.08} />
+          <WatercolorWash variant={2} className="top-8 -right-24 w-72 sm:w-96" opacity={0.16} />
+          <WatercolorWash variant={1} className="bottom-8 -left-20 w-64 sm:w-80" opacity={0.14} />
           <div className="relative z-[1]">
             <GallerySection />
           </div>
@@ -62,7 +70,8 @@ const Index = () => {
 
         <FloralDivider variant={2} align="right" />
         <div className="section-alt relative">
-          <WatercolorWash variant={1} className="-top-8 -left-16 w-56 sm:w-72" opacity={0.1} />
+          <WatercolorWash variant={1} className="-top-8 -left-16 w-72 sm:w-96" opacity={0.18} />
+          <WatercolorWash variant={2} className="bottom-4 -right-20 w-64 sm:w-80" opacity={0.14} />
           <div className="relative z-[1]">
             <ImportantInfoSection />
           </div>
@@ -70,6 +79,8 @@ const Index = () => {
 
         <FloralDivider variant={3} align="left" flip />
         <div className="relative">
+          <WatercolorWash variant={1} className="top-0 -left-24 w-72 sm:w-96" opacity={0.16} />
+          <WatercolorWash variant={2} className="bottom-0 -right-16 w-64 sm:w-80" opacity={0.13} />
           <div className="relative z-[1]">
             <RSVPSection />
           </div>
