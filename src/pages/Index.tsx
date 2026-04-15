@@ -13,7 +13,7 @@ import WatercolorWash from "@/components/WatercolorWash";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background subtle-texture relative overflow-hidden">
+    <div className="min-h-screen bg-background subtle-texture relative overflow-x-hidden">
       <FallingPetals />
       <EnvelopeAnimation />
 
