@@ -30,7 +30,7 @@ const FloralDivider = ({
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1 }}
       viewport={{ once: true }}
-      className={`flex items-center ${alignClass[align]} py-2 overflow-hidden ${className}`}
+      className={`flex items-center ${alignClass[align]} py-2 overflow-visible ${className}`}
     >
       <img
         src={images[variant]}
